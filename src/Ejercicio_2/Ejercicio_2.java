@@ -8,6 +8,6 @@ package Ejercicio_2;
  *
  * @author L0rd De!m0z
  */
-public class Ejercicio_2 {
+public class NewClass {
     
 }
