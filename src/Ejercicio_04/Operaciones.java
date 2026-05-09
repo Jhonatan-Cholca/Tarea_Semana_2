@@ -2,78 +2,80 @@ package Ejercicio_04;
 
 import java.util.Random;
 
-public class Operaciones {
+public class Operaciones{
 
-
-    // Genera una matriz de M x N con números aleatorios
-    public int[][] generarMatriz(int filas, int columnas) {
-        int[][] matriz = new int[filas][columnas];
+    // Método para llenar una matriz con números aleatorios (1 al 10)
+    public static void llenarMatriz(int[][] matriz) {
         Random rnd = new Random();
-        for (int i = 0; i < filas; i++) {
-            for (int j = 0; j < columnas; j++) {
-                matriz[i][j] = rnd.nextInt(10) + 1; // Números del 1 al 10
+        for (int i = 0; i < matriz.length; i++) {
+            for (int j = 0; j < matriz[i].length; j++) {
+                matriz[i][j] = rnd.nextInt(10) + 1;
             }
         }
-        return matriz;
     }
 
-    public int[][] sumar(int[][] a, int[][] b) {
-        int f = a.length;
-        int c = a[0].length;
-        int[][] resultado = new int[f][c];
-        for (int i = 0; i < f; i++) {
-            for (int j = 0; j < c; j++) {
+    // Sumar matrices: A[i][j] + B[i][j]
+    public static int[][] sumar(int[][] a, int[][] b) {
+        int filas = a.length;
+        int cols = a[0].length;
+        int[][] resultado = new int[filas][cols];
+        for (int i = 0; i < filas; i++) {
+            for (int j = 0; j < cols; j++) {
                 resultado[i][j] = a[i][j] + b[i][j];
             }
         }
         return resultado;
     }
 
-    public int[][] restar(int[][] a, int[][] b) {
-        int f = a.length;
-        int c = a[0].length;
-        int[][] resultado = new int[f][c];
-        for (int i = 0; i < f; i++) {
-            for (int j = 0; j < c; j++) {
+    // Restar matrices: A[i][j] - B[i][j]
+    public static int[][] restar(int[][] a, int[][] b) {
+        int filas = a.length;
+        int cols = a[0].length;
+        int[][] resultado = new int[filas][cols];
+        for (int i = 0; i < filas; i++) {
+            for (int j = 0; j < cols; j++) {
                 resultado[i][j] = a[i][j] - b[i][j];
             }
         }
         return resultado;
     }
+    
+    public static int[][] multiplicar(int[][] a, int[][] b) {
+    int filasA = a.length;
+    int colsA = a[0].length;
+    int colsB = b[0].length;
+    
+    // La matriz resultante tendrá las filas de A y las columnas de B
+    int[][] resultado = new int[filasA][colsB];
 
-    public int[][] trasponer(int[][] a) {
-        int f = a.length;
-        int c = a[0].length;
-        int[][] resultado = new int[c][f]; // Dimensiones invertidas
-        for (int i = 0; i < f; i++) {
-            for (int j = 0; j < c; j++) {
+    for (int i = 0; i < filasA; i++) {
+        for (int j = 0; j < colsB; j++) {
+            // Tercer ciclo para realizar la suma de los productos
+            for (int k = 0; k < colsA; k++) {
+                resultado[i][j] += a[i][k] * b[k][j];
+            }
+        }
+    }
+    return resultado;
+}
+    // Trasponer matriz: Cambiar filas por columnas
+    public static int[][] trasponer(int[][] a) {
+        int filas = a.length;
+        int cols = a[0].length;
+        int[][] resultado = new int[cols][filas]; // Dimensiones invertidas
+        for (int i = 0; i < filas; i++) {
+            for (int j = 0; j < cols; j++) {
                 resultado[j][i] = a[i][j];
             }
         }
         return resultado;
     }
 
-    public int[][] multiplicar(int[][] a, int[][] b) {
-        // Para multiplicar, columnas de A debe ser igual a filas de B
-        int fA = a.length;
-        int cA = a[0].length;
-        int cB = b[0].length;
-        int[][] resultado = new int[fA][cB];
-        
-        for (int i = 0; i < fA; i++) {
-            for (int j = 0; j < cB; j++) {
-                for (int k = 0; k < cA; k++) {
-                    resultado[i][j] += a[i][k] * b[k][j];
-                }
-            }
-        }
-        return resultado;
-    }
-
-    public void mostrarMatriz(int[][] m) {
-        for (int[] fila : m) {
-            for (int valor : fila) {
-                System.out.print("[" + valor + "]\t");
+    // Imprimir matriz con formato
+    public static void imprimir(int[][] matriz) {
+        for (int[] fila : matriz) {
+            for (int elemento : fila) {
+                System.out.print(elemento + "\t");
             }
             System.out.println();
         }

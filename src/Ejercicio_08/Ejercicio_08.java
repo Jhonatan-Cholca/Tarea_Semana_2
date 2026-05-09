@@ -1,43 +1,51 @@
 package Ejercicio_08;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ejercicio_08 {
-
-public static void main(String[] args) {
+    public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        OperacionesEficiencia servicio = new OperacionesEficiencia();
-        ArrayList<Operario> listaOperarios = new ArrayList<>();
 
         System.out.print("Ingrese la cantidad de operarios (N): ");
         int n = sc.nextInt();
 
-        // Registro de datos
+        // Arreglos paralelos para los datos de los operarios
+        String[] codigos = new String[n];
+        double[] horasAusencia = new double[n];
+        int[] pupitresDefectuosos = new int[n];
+        int[] pupitresProducidos = new int[n];
+        int[] gradosEficiencia = new int[n];
+
+        // Entrada de datos
         for (int i = 0; i < n; i++) {
-            System.out.println("\n--- Registro Operario #" + (i + 1) + " ---");
+            System.out.println("\n--- Datos del Operario #" + (i + 1) + " ---");
             System.out.print("Código: ");
-            String cod = sc.next();
+            codigos[i] = sc.next();
             System.out.print("Horas de ausencia: ");
-            double horas = sc.nextDouble();
+            horasAusencia[i] = sc.nextDouble();
             System.out.print("Pupitres defectuosos: ");
-            int def = sc.nextInt();
+            pupitresDefectuosos[i] = sc.nextInt();
             System.out.print("Pupitres producidos: ");
-            int prod = sc.nextInt();
+            pupitresProducidos[i] = sc.nextInt();
 
-            // Crear objeto y calcular su grado inmediatamente
-            Operario op = new Operario(cod, horas, def, prod);
-            int grado = servicio.calcularGrado(horas, def, prod);
-            op.setGradoEficiencia(grado);
-
-            // Guardar en la colección
-            listaOperarios.add(op);
+            // Cálculo del grado usando el método estático
+            gradosEficiencia[i] = OperacionesEficiencia.calcularGradoEficiencia(
+                horasAusencia[i], 
+                pupitresDefectuosos[i], 
+                pupitresProducidos[i]
+            );
         }
 
-        // Impresión de resultados
-        System.out.println("\n========= INFORME DE EFICIENCIA =========");
-        for (Operario op : listaOperarios) {
-            servicio.mostrarInforme(op);
+        // Impresión de resultados finales
+        System.out.println("\n========== REPORTE DE EFICIENCIA ==========");
+        for (int i = 0; i < n; i++) {
+            OperacionesEficiencia.imprimirReporte(
+                codigos[i], 
+                horasAusencia[i], 
+                pupitresDefectuosos[i], 
+                pupitresProducidos[i], 
+                gradosEficiencia[i]
+            );
         }
-    }    
+    }
 }

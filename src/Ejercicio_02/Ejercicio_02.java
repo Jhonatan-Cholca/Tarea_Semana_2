@@ -1,32 +1,39 @@
 package Ejercicio_02;
 
 import java.util.Scanner;
+import java.util.Random;
 
 public class Ejercicio_02 {
-    
-public static void main(String[] args) {
-        Scanner teclado = new Scanner(System.in);
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        Random rnd = new Random();
         
-        // INSTANCIAMOS la clase de servicios para poder usar sus métodos
-        Calculos servicio = new Calculos();
+        int[] vectorOriginal = new int[20];
+
+        // Llenado aleatorio del vector original (Valores entre 1 y 50)
+        for (int i = 0; i < 20; i++) {
+            vectorOriginal[i] = rnd.nextInt(50) + 1;
+        }
+
+        Calculos.imprimirVector("Vector Original", vectorOriginal);
+
+        // a. Búsqueda por teclado
+        System.out.print("\nIngrese un número a buscar: ");
+        int numBuscar = sc.nextInt();
+        int pos = Calculos.buscarPosicion(vectorOriginal, numBuscar);
         
-        // 1. Crear y mostrar vector original
-        int[] v1 = servicio.generarVector(20);
-        System.out.println("VECTOR ORIGINAL:");
-        servicio.mostrarVector(v1);
-        
-        // Parte A: Búsqueda
-        System.out.print("\nIngrese número a buscar: ");
-        int n = teclado.nextInt();
-        servicio.buscarPosicion(v1, n);
-        
-        // Parte B: Nuevo vector de impares
-        int[] v2 = servicio.obtenerIndicesImpares(v1);
-        System.out.println("\nVECTOR DE POSICIONES IMPARES:");
-        servicio.mostrarVector(v2);
-        
-        // Parte C: Conteo
-        int mayores = servicio.contarMayoresA20(v2);
-        System.out.println("\nEn el segundo vector hay " + mayores + " números mayores a 20.");
+        if (pos != -1) {
+            System.out.println("El número se encuentra en la posición (índice): " + (pos+1));
+        } else {
+            System.out.println("Número no encontrado en el vector.");
+        }
+
+        // b. Crear e imprimir vector de posiciones impares
+        int[] vectorImpares = Calculos.obtenerIndicesImpares(vectorOriginal);
+        Calculos.imprimirVector("\nVector Resultante (Índices Impares)", vectorImpares);
+
+        // c. Contar mayores a 20
+        int cantidad = Calculos.contarMayoresA20(vectorImpares);
+        System.out.println("\nCantidad de elementos mayores a 20 en el segundo vector: " + cantidad);
     }
 }

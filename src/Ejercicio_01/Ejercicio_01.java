@@ -1,23 +1,36 @@
 package Ejercicio_01;
 
-import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Ejercicio_01 {
     public static void main(String[] args) {
-        // Leer tamaños independientes para cada materia
-        int nMate = Reprobados.leerEntero("Ingrese la cantidad de estudiantes que reprobaron MATEMÁTICA: ");
-        int nIngles = Reprobados.leerEntero("Ingrese la cantidad de estudiantes que reprobaron INGLÉS: ");
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Ingrese la cantidad de estudiantes para Matemática: ");
+        int n1 = sc.nextInt();
+        String[] reprobadosMate = new String[n1];
         
-        // Llenar cada vector con su propio tamaño
-        ArrayList<String> reprobadosMate = Reprobados.llenarVector("MATEMÁTICA", nMate);
-        ArrayList<String> reprobadosIngles = Reprobados.llenarVector("INGLÉS", nIngles);        
+        for (int i = 0; i < n1; i++) {
+            System.out.print("Cédula reprobado Matemática #" + (i + 1) + ": ");
+            reprobadosMate[i] = sc.next();
+        }
+
+        System.out.print("\nIngrese la cantidad de estudiantes para Inglés: ");
+        int n2 = sc.nextInt();
+        String[] reprobadosIngles = new String[n2];
         
-        // Intersección (estudiantes en ambos)
-        ArrayList<String> reprobadosAmbas = Reprobados.interseccion(reprobadosMate, reprobadosIngles);
-        
-        // Imprimir resultados
-        Reprobados.imprimirVector("=== Reprobaron MATEMÁTICA ===", reprobadosMate);
-        Reprobados.imprimirVector("=== Reprobaron INGLÉS ===", reprobadosIngles);
-        Reprobados.imprimirVector("=== Reprobaron AMBAS materias ===", reprobadosAmbas);
+        for (int i = 0; i < n2; i++) {
+            System.out.print("Cédula reprobado Inglés #" + (i + 1) + ": ");
+            reprobadosIngles[i] = sc.next();
+        }
+
+        // Llamamos al método estático para formar el tercer vector
+        String[] reprobadosAmbas = Reprobados.obtenerReprobadosAmbas(reprobadosMate, reprobadosIngles);
+
+        // Impresión de resultados
+        System.out.println("\n========== REPORTE FINAL ==========");
+        Reprobados.imprimirVector("REPROBADOS MATEMÁTICA", reprobadosMate);
+        Reprobados.imprimirVector("REPROBADOS INGLÉS", reprobadosIngles);
+        Reprobados.imprimirVector("REPROBADOS EN AMBAS MATERIAS", reprobadosAmbas);
     }
 }

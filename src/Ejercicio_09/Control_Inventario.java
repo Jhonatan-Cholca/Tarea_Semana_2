@@ -1,51 +1,51 @@
 package Ejercicio_09;
 
-import java.util.ArrayList;
-
 public class Control_Inventario {
-// b. Mostrar medicamentos con stock crítico
-    public void mostrarStockBajo(ArrayList<Medicamentos> lista) {
-        System.out.println("\n--- ALERTAS DE STOCK MÍNIMO ---\n");
+
+    // b. Mostrar medicamentos cuyo stock esté por debajo del mínimo
+    public static void mostrarAlertas(String[] nombres, int[] actual, int[] minimo) {
+        System.out.println("\n--- ALERTAS DE REABASTECIMIENTO ---");
         boolean alerta = false;
-        for (Medicamentos m : lista) {
-            if (m.getStockActual() < m.getStockMinimo()) {
-                System.out.println("ALERTA: " + m.getNombre() + " (Actual: " + m.getStockActual() + ")");
+        for (int i = 0; i < nombres.length; i++) {
+            if (actual[i] < minimo[i]) {
+                System.out.println("-> " + nombres[i] + ": Stock actual (" + actual[i] + ") menor al mínimo (" + minimo[i] + ")");
                 alerta = true;
             }
         }
-        if (!alerta) System.out.println("Todo el inventario está en niveles óptimos.");
+        if (!alerta) System.out.println("Todo el inventario está en niveles normales.");
     }
 
-    // c. Calcular valor económico total
-    public double calcularValorInventario(ArrayList<Medicamentos> lista) {
-        double total = 0;
-        for (Medicamentos m : lista) {
-            total += m.getStockActual() * m.getPrecioUnitario();
+    // c. Calcular el valor económico total del inventario
+    public static double calcularValorTotal(int[] actual, double[] precios) {
+        double acumulador = 0;
+        for (int i = 0; i < actual.length; i++) {
+            acumulador += actual[i] * precios[i];
         }
-        return total;
+        return acumulador;
     }
 
-    // d. Actualizar stock después de una venta
-    public void realizarVenta(ArrayList<Medicamentos> lista, String nombre, int cantidad) {
-        for (Medicamentos m : lista) {
-            if (m.getNombre().equalsIgnoreCase(nombre)) {
-                if (m.getStockActual() >= cantidad) {
-                    m.setStockActual(m.getStockActual() - cantidad);
-                    System.out.println("Venta realizada. Nuevo stock de " + nombre + ": " + m.getStockActual());
+    // d. Actualizar el stock después de una venta
+    public static void procesarVenta(String[] nombres, int[] actual, String buscar, int cantidad) {
+        for (int i = 0; i < nombres.length; i++) {
+            if (nombres[i].equalsIgnoreCase(buscar)) {
+                if (actual[i] >= cantidad) {
+                    actual[i] -= cantidad;
+                    System.out.println("Venta exitosa. Stock actualizado.");
                 } else {
-                    System.out.println("Error: Stock insuficiente para la venta.");
+                    System.out.println("Error: No hay suficiente stock (Disponible: " + actual[i] + ")");
                 }
-                return;
+                return; // Sale del método tras encontrar el producto
             }
         }
-        System.out.println("Error: Medicamento no encontrado.");
+        System.out.println("Error: El medicamento '" + buscar + "' no existe.");
     }
 
-    // e. Mostrar reporte general
-    public void mostrarReporte(ArrayList<Medicamentos> lista) {
-        System.out.println("\n--- REPORTE GENERAL DE INVENTARIO ---");
-        for (Medicamentos m : lista) {
-            System.out.println(m.toString());
+    // e. Mostrar un reporte general del inventario
+    public static void mostrarReporte(String[] n, int[] s, int[] m, double[] p) {
+        System.out.println("\n================ INVENTARIO COMPLETO ================");
+        System.out.printf("%-15s %-10s %-10s %-10s\n", "Nombre", "Actual", "Mínimo", "Precio");
+        for (int i = 0; i < n.length; i++) {
+            System.out.printf("%-15s %-10d %-10d $%-10.2f\n", n[i], s[i], m[i], p[i]);
         }
     }
-}    
+}

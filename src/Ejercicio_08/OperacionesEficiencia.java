@@ -1,31 +1,43 @@
 package Ejercicio_08;
+
 public class OperacionesEficiencia {
-    
-public int calcularGrado(double horas, int defectuosos, int producidos) {
 
-    // Evaluamos las 3 condiciones básicas
-        boolean c1 = horas <= 3;
-        boolean c2 = defectuosos < 300;
-        boolean c3 = producidos > 10000;
+    // Método para calcular el grado de eficiencia basado en las 3 condiciones
+    public static int calcularGradoEficiencia(double horas, int defectuosos, int producidos) {
+        // Evaluamos las condiciones individualmente
+        boolean cond1 = (horas <= 3);
+        boolean cond2 = (defectuosos < 300);
+        boolean cond3 = (producidos > 10000);
 
-        // Lógica de Grados
-        if (c1 && c2 && c3) return 20;
-        if (c2 && c3) return 15;
-        if (c1 && c3) return 13;
-        if (c1 && c2) return 12;
-        if (c3) return 9;
-        if (c2) return 8;
-        if (c1) return 7;
+        // h. Si cumple las tres condiciones
+        if (cond1 && cond2 && cond3) return 20;
         
-        return 5; // Si no cumple ninguna
+        // g. Si cumple la segunda y la tercera
+        if (cond2 && cond3) return 15;
+        
+        // f. Si cumple la primera y la tercera
+        if (cond1 && cond3) return 13;
+        
+        // e. Si cumple la primera y la segunda
+        if (cond1 && cond2) return 12;
+        
+        // d. Si cumple solo la tercera
+        if (cond3) return 9;
+        
+        // c. Si cumple solo la segunda
+        if (cond2) return 8;
+        
+        // b. Si cumple solo la primera
+        if (cond1) return 7;
+        
+        // a. Si no cumple ninguna
+        return 5;
     }
 
-    public void mostrarInforme(Operario op) {
-        System.out.println("----------------------------------------");
-        System.out.println("Código: " + op.getCodigo());
-        System.out.println("Horas Ausencia: " + op.getHorasAusencia());
-        System.out.println("Defectuosos: " + op.getDefectuosos());
-        System.out.println("Producidos: " + op.getProducidos());
-        System.out.println("GRADO DE EFICIENCIA: " + op.getGradoEficiencia());
-    }    
+    // Método para imprimir el reporte de un operario
+    public static void imprimirReporte(String cod, double h, int d, int p, int grado) {
+        System.out.println("Cód: " + cod + " | Horas Ausente: " + h + 
+                           " | Defectuosos: " + d + " | Producidos: " + p + 
+                           " | GRADO: " + grado);
+    }
 }

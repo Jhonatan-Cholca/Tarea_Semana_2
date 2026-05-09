@@ -1,73 +1,77 @@
 package Ejercicio_07;
 
 public class CalculosNotas {
-    
-// Literal A: El promedio de las calificaciones por cada estudiante (Filas)
-    public double[] calcularPromedioPorEstudiante(double[][] notas) {
-        double[] promedios = new double[notas.length];
+
+    // Literal A: El promedio de las calificaciones por cada estudiante
+    public static void calcularPromedioPorEstudiante(String[] codigos, double[][] notas) {
+        System.out.println("\n--- [LITERAL A] PROMEDIO POR ESTUDIANTE ---");
         for (int i = 0; i < notas.length; i++) {
             double suma = 0;
             for (int j = 0; j < 8; j++) {
                 suma += notas[i][j];
             }
-            promedios[i] = suma / 8;
+            double promedio = suma / 8;
+            System.out.println("Estudiante: " + codigos[i] + " | Promedio: " + promedio);
         }
-        return promedios;
     }
 
-    // Literal B: El promedio de la calificación por cada materia (Columnas)
-    public double[] calcularPromedioPorMateria(double[][] notas) {
-        double[] promediosMat = new double[8];
+    // Literal B: El promedio de la calificación por cada materia
+    public static void calcularPromedioPorMateria(double[][] notas) {
+        System.out.println("\n--- [LITERAL B] PROMEDIO POR MATERIA ---");
         for (int j = 0; j < 8; j++) {
-            double suma = 0;
+            double sumaMateria = 0;
             for (int i = 0; i < notas.length; i++) {
+                sumaMateria += notas[i][j];
+            }
+            System.out.println("Materia #" + (j + 1) + ": " + (sumaMateria / notas.length));
+        }
+    }
+
+    // Literal C: El estudiante con mayor promedio
+    public static void mostrarEstudianteMayorPromedio(String[] codigos, double[][] notas) {
+        double mayorPromedio = -1;
+        String mejorEstudiante = "";
+
+        for (int i = 0; i < notas.length; i++) {
+            double suma = 0;
+            for (int j = 0; j < 8; j++) {
                 suma += notas[i][j];
             }
-            promediosMat[j] = suma / notas.length;
-        }
-        return promediosMat;
-    }
-
-    // Literal C: Encontrar el estudiante con el mayor promedio
-    public int obtenerIndiceMejorEstudiante(double[] promedios) {
-        int indiceMejor = 0;
-        double maxPromedio = promedios[0];
-        for (int i = 1; i < promedios.length; i++) {
-            if (promedios[i] > maxPromedio) {
-                maxPromedio = promedios[i];
-                indiceMejor = i;
+            double promedioActual = suma / 8;
+            if (promedioActual > mayorPromedio) {
+                mayorPromedio = promedioActual;
+                mejorEstudiante = codigos[i];
             }
         }
-        return indiceMejor;
+        System.out.println("\n--- [LITERAL C] MEJOR ESTUDIANTE ---");
+        System.out.println("El código con mayor promedio es: " + mejorEstudiante + " con " + mayorPromedio);
     }
 
-    // Literal D: Número de estudiantes aprobados (>= 7) por cada materia
-    public int[] calcularAprobadosPorMateria(double[][] notas) {
-        int[] aprobados = new int[8];
+    // Literal D: Estudiantes aprobados por materia (>= 7)
+    public static void contarAprobadosPorMateria(double[][] notas) {
+        System.out.println("\n--- [LITERAL D] APROBADOS POR MATERIA ---");
         for (int j = 0; j < 8; j++) {
-            int contador = 0;
+            int aprobados = 0;
             for (int i = 0; i < notas.length; i++) {
-                if (notas[i][j] >= 7.0 && notas[i][j] <= 10.0) {
-                    contador++;
+                if (notas[i][j] >= 7 && notas[i][j] <= 10) {
+                    aprobados++;
                 }
             }
-            aprobados[j] = contador;
+            System.out.println("Materia #" + (j + 1) + ": " + aprobados + " aprobados.");
         }
-        return aprobados;
     }
 
-    // Literal E: Número de estudiantes reprobados (< 7) por cada materia
-    public int[] calcularReprobadosPorMateria(double[][] notas) {
-        int[] reprobados = new int[8];
+    // Literal E: Estudiantes reprobados por materia (< 7)
+    public static void contarReprobadosPorMateria(double[][] notas) {
+        System.out.println("\n--- [LITERAL E] REPROBADOS POR MATERIA ---");
         for (int j = 0; j < 8; j++) {
-            int contador = 0;
+            int reprobados = 0;
             for (int i = 0; i < notas.length; i++) {
-                if (notas[i][j] < 7.0) {
-                    contador++;
+                if (notas[i][j] < 7) {
+                    reprobados++;
                 }
             }
-            reprobados[j] = contador;
+            System.out.println("Materia #" + (j + 1) + ": " + reprobados + " reprobados.");
         }
-        return reprobados;
     }
 }

@@ -1,54 +1,66 @@
 package Ejercicio_10;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ejercicio_10 {
-
-public static void main(String[] args) {
+    public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        CalculosPedidos servicio = new CalculosPedidos();
-        ArrayList<Pedido> listaPedidos = new ArrayList<>();
 
+        // a. Registro de pedidos
         System.out.print("¿Cuántos pedidos desea registrar?: ");
         int n = sc.nextInt();
 
-        // a. Registrar pedidos
+        String[] nombresClientes = new String[n];
+        String[] platosSolicitados = new String[n];
+        int[] cantidades = new int[n];
+        double[] preciosUnitarios = new double[n];
+        double[] totalesFinales = new double[n];
+
         for (int i = 0; i < n; i++) {
-            System.out.println("\n--- Pedido #" + (i + 1) + " ---");
+            System.out.println("\nRegistro del Pedido #" + (i + 1));
             System.out.print("Nombre del cliente: ");
-            String cliente = sc.next();
+            nombresClientes[i] = sc.next();
             System.out.print("Plato solicitado: ");
-            String plato = sc.next();
+            platosSolicitados[i] = sc.next();
             System.out.print("Cantidad: ");
-            int cant = sc.nextInt();
-            System.out.print("Precio unitario: ");
-            double precio = sc.nextDouble();
+            cantidades[i] = sc.nextInt();
+            System.out.print("Precio Unitario: ");
+            preciosUnitarios[i] = sc.nextDouble();
 
-            Pedido nuevoPedido = new Pedido(cliente, plato, cant, precio);
-            
-            // b y c. Calcular total y aplicar descuento automáticamente
-            double totalCalculado = servicio.calcularTotalConDescuento(cant, precio);
-            nuevoPedido.setTotalFinal(totalCalculado);
-
-            listaPedidos.add(nuevoPedido);
+            // Calculamos el total de una vez para guardarlo en su arreglo
+            totalesFinales[i] = CalculosPedido.calcularTotalConDescuento(
+                cantidades[i], 
+                preciosUnitarios[i]
+            );
         }
 
-        // MOSTRAR RESULTADOS
-        System.out.println("\n========= REPORTE DE VENTAS =========");
-        for (Pedido p : listaPedidos) {
-            System.out.println(p.toString());
-        }
+        int opcion;
+        do {
+            System.out.println("\n--- SISTEMA DE RESTAURANTE ---");
+            System.out.println("1. Mostrar todos los pedidos (con descuentos)");
+            System.out.println("2. Ver ingreso total del restaurante");
+            System.out.println("3. Ver pedido de mayor valor");
+            System.out.println("0. Salir");
+            System.out.print("Seleccione una opción: ");
+            opcion = sc.nextInt();
 
-        // d. Ingreso total
-        double ingreso = servicio.calcularIngresoTotal(listaPedidos);
-        System.out.printf("\nIngreso total del restaurante: $%.2f\n", ingreso);
-
-        // e. Pedido de mayor valor
-        Pedido mayor = servicio.obtenerPedidoMayorValor(listaPedidos);
-        if (mayor != null) {
-            System.out.println("\n--- PEDIDO DE MAYOR VALOR ---");
-            System.out.println("El cliente " + mayor.getCliente() + " pagó $" + mayor.getTotalFinal());
-        }
-    }    
+            switch (opcion) {
+                case 1:
+                    System.out.println("\n--- LISTADO DE PEDIDOS ---");
+                    for (int i = 0; i < n; i++) {
+                        System.out.println("Cliente: " + nombresClientes[i] + 
+                                           " | Plato: " + platosSolicitados[i] + 
+                                           " | Total: $" + totalesFinales[i]);
+                    }
+                    break;
+                case 2:
+                    double ingreso = CalculosPedido.calcularIngresoTotal(totalesFinales);
+                    System.out.println("\nEl ingreso total del día es: $" + ingreso);
+                    break;
+                case 3:
+                    CalculosPedido.mostrarPedidoMayor(nombresClientes, platosSolicitados, totalesFinales);
+                    break;
+            }
+        } while (opcion != 0);
+    }
 }
