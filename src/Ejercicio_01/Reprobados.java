@@ -1,10 +1,8 @@
 package Ejercicio_01;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Reprobados {
-    
      public static int leerEntero(String mensaje) {
         // Creamos un objeto Scanner para leer desde el teclado (System.in)
         Scanner teclado = new Scanner(System.in);
@@ -12,7 +10,6 @@ public class Reprobados {
         // Leemos y devolvemos el número entero ingresado
         return teclado.nextInt();
     }
-
     public static ArrayList<String> llenarVector(String materia, int cantidad) {
         Scanner teclado = new Scanner(System.in);
         // Creamos el ArrayList vacío que almacenará las cédulas (como Strings)
@@ -26,7 +23,6 @@ public class Reprobados {
         }
         return vector;
     }
-
     public static ArrayList<String> interseccion(ArrayList<String> lista1, ArrayList<String> lista2) {
         // ArrayList que guardará el resultado (estudiantes en ambas listas)
         ArrayList<String> resultado = new ArrayList<>();
@@ -38,7 +34,6 @@ public class Reprobados {
         // Devolvemos la lista de estudiantes que reprobaron ambas materias
         return resultado;
     }
-
     public static void imprimirVector(String titulo, ArrayList<String> vector) {
         System.out.println("\n" + titulo);
         // Verificamos si el ArrayList no tiene elementos
