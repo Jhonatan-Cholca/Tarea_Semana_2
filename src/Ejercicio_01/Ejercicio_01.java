@@ -16,7 +16,7 @@ public class Ejercicio_01 {
         ArrayList<String> reprobadosAmbas = Reprobados.interseccion(reprobadosMate, reprobadosIngles);
         
         // Imprimir resultados
-        Reprobados.imprimirVector("=== Reprobaron MATEMÁTICA testset===", reprobadosMate);
+        Reprobados.imprimirVector("=== Reprobaron MATEMÁTICA ===", reprobadosMate);
         Reprobados.imprimirVector("=== Reprobaron INGLÉS ===", reprobadosIngles);
         Reprobados.imprimirVector("=== Reprobaron AMBAS materias ===", reprobadosAmbas);
     }

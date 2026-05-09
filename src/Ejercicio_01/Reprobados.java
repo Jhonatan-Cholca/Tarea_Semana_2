@@ -41,7 +41,5 @@ public class Reprobados {
                 System.out.println(cedula);
             }
         }
-    }
- 
- 
+    } 
 }
